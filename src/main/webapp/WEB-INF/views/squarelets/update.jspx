@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_de_punyco_thirtytwosquare_domain_Squarelet" modelAttribute="squarelet" path="/squarelets" versionField="Version" z="B4yX0tpm4QO7/4b3hfrG9cM2g7c=">
+        <field:input field="metadata" id="c_de_punyco_thirtytwosquare_domain_Squarelet_metadata" z="WDuvcpnR+Lt3VYrhxWVO1o/O9y0="/>
+    </form:update>
+</div>
