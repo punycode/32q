@@ -1,10 +1,11 @@
-<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" >  
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" >  
 	
 	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
-	
+
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />  
 	<jsp:directive.page pageEncoding="UTF-8" /> 
-			
+	<spring:url var="home" value="/" />
+	<spring:message code="button_home" var="home_label" htmlEscape="false" />
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=8" />	
@@ -13,16 +14,48 @@
 		
 		<spring:message code="application_name" var="app_name" htmlEscape="false"/>
 		<title><spring:message code="welcome_h3" arguments="${app_name}" /></title>
+		<style type="text/css">
+			body { padding: 60px 0; }
+		</style>
 	</head>
 	
   	<body class="tundra spring">
-   		<div id="wrapper">
-		    <tiles:insertAttribute name="header" ignore="true" />
-		    <tiles:insertAttribute name="menu" ignore="true" />   
-		    <div id="main">
-	    		<tiles:insertAttribute name="body"/> 
-		    	<tiles:insertAttribute name="footer" ignore="true"/>
-		    </div>
+		<div id="wrapper" class="container">
+		<nav class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container">
+			<a class="brand" href="${home}" name="${fn:escapeXml(home_label)}" title="${fn:escapeXml(home_label)}">
+				<spring:message code="application_name" htmlEscape="false" />
+			</a>
+			<tiles:insertAttribute name="menu" ignore="true" />
+		</div></div></nav>
+		<section id="main">
+			<tiles:insertAttribute name="body"/>
+		</section>
+		<nav class="navbar navbar-fixed-bottom" id="footer"><div class="navbar-inner"><div class="container">
+			<a class="brand" href="${home}"><spring:message code="button_home"/></a>
+			<ul id="_user_nav" class="nav nav-pills">
+				<c:if test="${pageContext['request'].userPrincipal != null}">
+				<spring:url value="/resources/j_spring_security_logout" var="logout"/>
+				<li><a href="${logout}"><spring:message code="security_logout"/></a></li>
+				</c:if>
+				<li class="dropdown">
+					<a id="language" data-toggle="dropdown" class="dropdown-toggle">
+						<spring:message code="global_language"/>
+						<span class="caret" />
+					</a>
+					<ul class="dropdown-menu">
+					  <li><util:language label="English" locale="en"/></li>
+					</ul>
+				</li>
+				<util:theme/>
+			</ul>
+			<spring:url value="/resources/images/springsource-logo.png" var="logo"/>
+			<spring:message code="global_sponsored" htmlEscape="false" var="sponsored"/>
+			<div class="navbar-text pull-right">
+			<a class="navbar-link" href="http://springsource.com" title="${fn:escapeXml(sponsored)}">
+				${fn:escapeXml(sponsored)}
+			</a>
+			</div>
+		</div></div></nav>
 		</div>
 	</body>
 </html>

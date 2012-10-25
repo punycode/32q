@@ -16,11 +16,12 @@
       <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" htmlEscape="false" />
     </c:if>
 
-    <div id="_${fn:escapeXml(id)}_id">
-      <label for="_${fn:escapeXml(field)}_id">
-        <c:out value="${label}" />
-        :
+    <div class="control-group" id="_${fn:escapeXml(id)}_id">
+      <label class="control-label" for="_${fn:escapeXml(field)}_id">
+        <c:out value="${label}" />:
       </label>
+      <div class="controls">
+      <span class="help-inline">
       <c:choose>
         <c:when test="${not empty messageCode}">
           <spring:message code="${messageCode}" arguments="${messageCodeAttribute}" />
@@ -29,7 +30,8 @@
           <spring:eval expression="text" />
         </c:otherwise>
       </c:choose>
+      </span>
+      </div>
     </div>
-    <br />
   </c:if>
 </jsp:root>

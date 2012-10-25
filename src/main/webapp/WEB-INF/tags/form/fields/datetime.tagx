@@ -32,44 +32,36 @@
       <c:set value="false" var="required" />
     </c:if>
 
-    <script type="text/javascript">dojo.require('dijit.form.DateTextBox')</script>
-    <div id="_${sec_id}_id">
-      <label for="_${sec_field}_id">
-        <c:out value="${label}" />
-        :
+    <c:set var="sec_dateTimePattern">
+	  <spring:escapeBody javaScriptEscape="true">${dateTimePattern}</spring:escapeBody>
+	</c:set>
+
+    <spring:bind path="${sec_field}">
+    	<c:choose><c:when test="${status.error}">
+    		<c:set var="controlgroup_class" value=" error" />
+    	</c:when><c:otherwise>
+    		<c:set var="controlgroup_class" value="" />
+		</c:otherwise></c:choose>
+    </spring:bind>
+
+    <div class="control-group ${controlgroup_class}" id="_${fn:escapeXml(id)}_id">
+      <label class="control-label" for="_${sec_field}_id">
+        <c:out value="${label}" />:
       </label>
+      <div class="controls">
       <c:choose>
         <c:when test="${disableFormBinding}">
-          <input id="_${sec_field}_id" name="${sec_field}" />
+          <input data-date-format="${sec_dateTimePattern}" id="_${sec_field}_id" name="${sec_field}" />
         </c:when>
         <c:otherwise>
-          <form:input id="_${sec_field}_id" path="${sec_field}" disabled="${disabled}" />
-          <br />
-          <form:errors cssClass="errors" id="_${sec_field}_error_id" path="${sec_field}" />
+          <form:input data-date-format="${sec_dateTimePattern}" id="_${sec_field}_id" path="${sec_field}" disabled="${disabled}" />
+          <form:errors cssClass="help-inline" id="_${sec_field}_error_id" path="${sec_field}" />
         </c:otherwise>
       </c:choose>
-      <spring:message arguments="${fn:escapeXml(label)}" code="field_invalid" var="field_invalid" htmlEscape="false" />
-      <c:choose>
-        <c:when test="${required}">
-          <spring:message code="field_required" var="field_required" htmlEscape="false" />
-          <spring:message argumentSeparator="," arguments="${label},(${field_required})" code="field_simple_validation" var="field_validation" htmlEscape="false" />
-        </c:when>
-        <c:otherwise>
-          <spring:message argumentSeparator="," arguments="${label}, " code="field_simple_validation" var="field_validation" htmlEscape="false" />
-        </c:otherwise>
-      </c:choose>
+      </div>
       <script type="text/javascript">
-        <c:set var="sec_field_validation">
-          <spring:escapeBody javaScriptEscape="true">${field_validation}</spring:escapeBody>
-        </c:set>
-        <c:set var="sec_field_invalid">
-          <spring:escapeBody javaScriptEscape="true">${field_invalid}</spring:escapeBody>
-        </c:set>
-        <c:set var="sec_dateTimePattern">
-          <spring:escapeBody javaScriptEscape="true">${dateTimePattern}</spring:escapeBody>
-        </c:set>
-        Spring.addDecoration(new Spring.ElementDecoration({elementId : '_${sec_field}_id', widgetType : 'dijit.form.DateTextBox', widgetAttrs : {promptMessage: '${sec_field_validation}', invalidMessage: '${sec_field_invalid}', required: ${required}, constraints: {datePattern : '${sec_dateTimePattern}', required : ${required}}, datePattern : '${sec_dateTimePattern}'}})); </script>
+        $("#_${sec_field}_id").datepicker({format: "${sec_dateTimePattern}"});
+	  </script>
     </div>
-    <br />
   </c:if>
 </jsp:root>

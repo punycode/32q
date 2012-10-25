@@ -12,11 +12,12 @@
 			<spring:message code="menu_category_${fn:toLowerCase(fn:substringAfter(id,'_'))}_label" var="label" htmlEscape="false"/>
 		</c:if>
 		
-		<li id="${fn:escapeXml(id)}">
-			<h2>
+		<li id="${fn:escapeXml(id)}" class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<c:out value="${label}" />
-			</h2>
-			<ul>
+				<span class="caret" />
+			</a>
+			<ul class="dropdown-menu">
 				<jsp:doBody />
 			</ul>
 		</li>

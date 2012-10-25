@@ -1,0 +1,74 @@
+<jsp:root xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags"
+  xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+  <jsp:directive.tag language="java" pageEncoding="UTF-8" />
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="modelAttribute" type="java.lang.String" required="true" rtexprvalue="true" description="The model attribute exposing the ParseBean" />
+  <jsp:directive.attribute name="path" type="java.lang.String" required="true" rtexprvalue="true" description="Specify the relative URL path (wit leading /)" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" rtexprvalue="true" description="The label used for this object, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="labelCode" type="java.lang.String" required="false" rtexprvalue="true" description="Key for label message bundle if label is not supplied" />
+
+  <c:if test="${empty label}">
+    <c:if test="${empty labelCode}">
+      <c:set var="labelCode" value="${fn:substringAfter(id,'_')}" />
+    </c:if>
+    <spring:message code="label_${fn:toLowerCase(labelCode)}" var="label" htmlEscape="false" />
+  </c:if>
+  <c:set var="enctype" value="application/x-www-form-urlencoded" />
+
+  <spring:bind path="${modelAttribute}.parseOk">
+    <c:choose>
+      <c:when test="${status.value}">
+        <c:set var="controlgroup_class" value="success" />
+      </c:when>
+      <c:otherwise>
+        <c:set var="controlgroup_class" value="error" />
+      </c:otherwise>
+    </c:choose>
+  </spring:bind>
+
+  <spring:message arguments="${label}" code="parser_entry" var="title_msg" htmlEscape="false" />
+  <util:panel id="${id}" title="${title_msg}">
+    <spring:url value="${path}" var="form_url" />
+    <form:form action="${form_url}" method="POST" modelAttribute="${modelAttribute}" enctype="${enctype}" class="form-horizontal">
+      <form:errors cssClass="control-group error" delimiter="&lt;p/&gt;" />
+      <div class="control-group" id="_${fn:escapeXml(id)}_id">
+        <label class="control-label" for="_${sec_field}_id"> <c:out value="${fn:escapeXml(label)}" />:
+        </label>
+        <div class="controls">
+          <form:textarea path="text" rows="10" />
+        </div>
+      </div>
+
+      <div class="control-group ${controlgroup_class}" id="_${fn:escapeXml(id)}_status_id">
+        <label class="control-label" for="_${sec_field}_status_id"> <c:out value="${fn:escapeXml(label)}" />:
+        </label>
+        <div class="controls">
+          <form:input path="status" readonly="true" disabled="true" />
+          <div class="help-block">
+            <spring:bind path="parseTreeHtml" htmlEscape="false">
+              <c:if test="${not empty status.value}">
+                <c:out value="${status.value}" escapeXml="false" />
+              </c:if>
+            </spring:bind>
+            <spring:bind path="errors">
+              <c:if test="${not empty status.value}">
+                <ul>
+                  <c:forEach items="${status.value}" var="item">
+                    <li>Error at position <c:out value="${item.startIndex}" /></li>
+                  </c:forEach>
+                </ul>
+              </c:if>
+            </spring:bind>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions" id="${fn:escapeXml(id)}_submit">
+        <spring:message code="button_parse" var="parse_button" htmlEscape="false" />
+        <input id="proceed" type="submit" value="${fn:escapeXml(parse_button)}" class="btn btn-primary" />
+      </div>
+    </form:form>
+  </util:panel>
+</jsp:root>
+

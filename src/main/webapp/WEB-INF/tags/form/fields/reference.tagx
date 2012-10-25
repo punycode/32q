@@ -15,11 +15,11 @@
       <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" htmlEscape="false" />
     </c:if>
 
-    <div id="_${fn:escapeXml(id)}_id">
-      <label for="_${fn:escapeXml(field)}_id">
-        <c:out value="${fn:escapeXml(label)}" />
-        :
+    <div class="control-group" id="_${fn:escapeXml(id)}_id">
+      <label class="control-label" for="_${fn:escapeXml(field)}_id">
+        <c:out value="${fn:escapeXml(label)}" />:
       </label>
+      <div class="controls">
       <spring:url value="${path}" var="create_url">
         <spring:param name="form" />
       </spring:url>
@@ -35,7 +35,7 @@
         <spring:message code="field_required" />
         )
       </c:if>
+      </div>
     </div>
-    <br />
   </c:if>
 </jsp:root>
