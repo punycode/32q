@@ -20,8 +20,8 @@
         subsequently presented to a specific Spring dependency injection
         method). Roo applications use this useful feature in a number of
         areas, such as @PersistenceContext injection into entities.
-    -->
     <context:spring-configured/>
+    -->
     <!--
         This declaration will cause Spring to locate every @Component,
         @Repository and @Service in your application. In practical terms this
@@ -50,7 +50,7 @@
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="persistenceUnitName" value="transactions-optional"/>
     </bean>
