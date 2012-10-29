@@ -23,16 +23,6 @@
 
     <repositories>
         <repository>
-            <id>spring-maven-release</id>
-            <name>Spring Maven Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
-        </repository>
-        <repository>
-            <id>spring-maven-milestone</id>
-            <name>Spring Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
-        </repository>
-        <repository>
             <id>spring-roo-repository</id>
             <name>Spring Roo Repository</name>
             <url>http://spring-roo-repository.springsource.org/release</url>
@@ -40,16 +30,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>spring-maven-release</id>
-            <name>Spring Maven Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-maven-milestone</id>
-            <name>Spring Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
-        </pluginRepository>
         <pluginRepository>
             <id>spring-roo-repository</id>
             <name>Spring Roo Repository</name>
@@ -196,14 +176,6 @@
             <version>${datanucleus.core.version}</version>
         </dependency>
 
-        <!--
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-rdbms</artifactId>
-            <version>${datanucleus.dbms.version}</version>
-        </dependency>
-        -->
-
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jpa</artifactId>
@@ -302,14 +274,6 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
-        <!--
-        <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-js-resources</artifactId>
-            <version>2.2.1.RELEASE</version>
-        </dependency>
-        -->
 
         <dependency>
             <groupId>commons-digester</groupId>
