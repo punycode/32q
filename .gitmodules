@@ -1,6 +1,6 @@
 [submodule "3rdparty/deck.js"]
 	path = 3rdparty/deck.js
-	url = https://github.com/imakewebthings/deck.js.git
+	url = git://github.com/imakewebthings/deck.js.git
 [submodule "3rdparty/deck.ext.js"]
 	path = 3rdparty/deck.ext.js
-	url = https://github.com/barraq/deck.ext.js.git
+	url = git://github.com/barraq/deck.ext.js.git
