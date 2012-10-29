@@ -7,9 +7,7 @@
   <spring:url value="/resources/js/bootstrap-dropdown.js" var="bootstrap_dropdown_url" />
   <spring:url value="/resources/js/bootstrap-datepicker.js" var="bootstrap_datepicker_url" />
   <spring:url value="/resources/images/favicon.ico" var="favicon" />
-<!-- 
-  <link rel="stylesheet" type="text/css" href="${tundra_url}" />
--->  
+
   <link rel="stylesheet" type="text/css" media="screen" href="${roo_css_url}" />
 
   <link rel="SHORTCUT ICON" href="${favicon}" />
