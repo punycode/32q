@@ -1,28 +1,29 @@
 package de.punyco.thirtytwosquare.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.roo.addon.equals.RooEquals;
+
+import org.datanucleus.api.jpa.annotations.Extension;
+
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.serializable.RooSerializable;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.roo.classpath.operations.jsr303.RooUploadedFile;
+
+import java.io.Serializable;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
 
 
 @RooJavaBean
 @RooToString
-@RooJpaEntity
-@RooEquals
+@RooJpaEntity(identifierType = String.class)
 @RooSerializable
 @Entity
 public class Squarelet implements Serializable {
@@ -31,21 +32,26 @@ public class Squarelet implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Extension(vendorName = "datanucleus", key = "gae.encoded-pk", value = "true")
+    private String id;
 
     @Version
     private Integer version;
 
-    private String metadata;
+    @RooUploadedFile(contentType = "image/png")
+    @Lob
+    private byte[] content;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Squarelet> replies = new HashSet<Squarelet>();
 
-    public Long getId() {
+    public String getId() {
 
         return this.id;
     }
 
 
-    public void setId(Long id) {
+    public void setId(String id) {
 
         this.id = id;
     }
@@ -63,40 +69,57 @@ public class Squarelet implements Serializable {
     }
 
 
-    public String getMetadata() {
+    public byte[] getContent() {
 
-        return this.metadata;
+        return this.content;
     }
 
 
-    public void setMetadata(String metadata) {
+    public void setContent(byte[] content) {
 
-        this.metadata = metadata;
+        this.content = content;
     }
 
 
+    public Set<Squarelet> getReplies() {
+
+        return this.replies;
+    }
+
+
+    public void setReplies(Set<Squarelet> replies) {
+
+        this.replies = replies;
+    }
+
+
+    @Override
     public boolean equals(Object obj) {
 
         if (!(obj instanceof Squarelet)) {
             return false;
         }
+
         if (this == obj) {
             return true;
         }
+
         Squarelet rhs = (Squarelet) obj;
-        return new EqualsBuilder().append(id, rhs.id).append(metadata, rhs.metadata).isEquals();
+
+        return new EqualsBuilder().append(id, rhs.id).isEquals();
     }
 
 
+    @Override
     public int hashCode() {
 
-        return new HashCodeBuilder().append(id).append(metadata).toHashCode();
+        return new HashCodeBuilder().append(id).toHashCode();
     }
 
 
+    @Override
     public String toString() {
 
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
-
 }

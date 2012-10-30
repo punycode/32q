@@ -3,6 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_de_punyco_thirtytwosquare_domain_Squarelet" object="${squarelet}" path="/squarelets" z="z0obrgQ6VCn0hRChZnobe5htbeA=">
-        <field:display field="metadata" id="s_de_punyco_thirtytwosquare_domain_Squarelet_metadata" object="${squarelet}" z="QSb7QA1AhW8CyyiA3nIAhjy+g5E="/>
+        <field:display field="content" id="s_de_punyco_thirtytwosquare_domain_Squarelet_content" object="${squarelet}" z="y4Iihj6/JaQltbvSW5mA8s8wqEg="/>
+        <field:display field="replies" id="s_de_punyco_thirtytwosquare_domain_Squarelet_replies" object="${squarelet}" z="uGiEmMnAbl9lgG/ciotQC9VuaLI="/>
     </page:show>
 </div>
