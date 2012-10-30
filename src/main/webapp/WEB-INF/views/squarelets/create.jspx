@@ -3,7 +3,8 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_de_punyco_thirtytwosquare_domain_Squarelet" modelAttribute="squarelet" path="/squarelets" render="${empty dependencies}" z="TU538dTRQhe41XNzFgvGO/hpwfc=">
-        <field:input field="metadata" id="c_de_punyco_thirtytwosquare_domain_Squarelet_metadata" z="WDuvcpnR+Lt3VYrhxWVO1o/O9y0="/>
+        <field:input field="content" id="c_de_punyco_thirtytwosquare_domain_Squarelet_content" z="rCpNUzPw/Gszok2uE3LVSMEzH6U="/>
+        <field:input field="replies" id="c_de_punyco_thirtytwosquare_domain_Squarelet_replies" z="gZ4XLP8lLH3YRnIhIKP2koCvb9k="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_de_punyco_thirtytwosquare_domain_Squarelet" render="${not empty dependencies}" z="p/x+Lobb4G90T3ZgOybcGWAZVKs="/>
 </div>

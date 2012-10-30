@@ -4,15 +4,24 @@
 package de.punyco.thirtytwosquare.domain;
 
 import de.punyco.thirtytwosquare.domain.Squarelet;
+import java.util.Set;
 
 privileged aspect Squarelet_Roo_JavaBean {
     
-    public String Squarelet.getMetadata() {
-        return this.metadata;
+    public byte[] Squarelet.getContent() {
+        return this.content;
     }
     
-    public void Squarelet.setMetadata(String metadata) {
-        this.metadata = metadata;
+    public void Squarelet.setContent(byte[] content) {
+        this.content = content;
+    }
+    
+    public Set<Squarelet> Squarelet.getReplies() {
+        return this.replies;
+    }
+    
+    public void Squarelet.setReplies(Set<Squarelet> replies) {
+        this.replies = replies;
     }
     
 }

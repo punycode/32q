@@ -4,7 +4,7 @@
 package de.punyco.thirtytwosquare.web;
 
 import de.punyco.thirtytwosquare.domain.Squarelet;
-import de.punyco.thirtytwosquare.service.SquareletService;
+import de.punyco.thirtytwosquare.service.PostingService;
 import de.punyco.thirtytwosquare.web.SquareletController;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import org.springframework.web.util.WebUtils;
 privileged aspect SquareletController_Roo_Controller {
     
     @Autowired
-    SquareletService SquareletController.squareletService;
+    PostingService SquareletController.postingService;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String SquareletController.create(@Valid Squarelet squarelet, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -31,7 +31,7 @@ privileged aspect SquareletController_Roo_Controller {
             return "squarelets/create";
         }
         uiModel.asMap().clear();
-        squareletService.saveSquarelet(squarelet);
+        postingService.saveSquarelet(squarelet);
         return "redirect:/squarelets/" + encodeUrlPathSegment(squarelet.getId().toString(), httpServletRequest);
     }
     
@@ -42,8 +42,8 @@ privileged aspect SquareletController_Roo_Controller {
     }
     
     @RequestMapping(value = "/{id}", produces = "text/html")
-    public String SquareletController.show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("squarelet", squareletService.findSquarelet(id));
+    public String SquareletController.show(@PathVariable("id") String id, Model uiModel) {
+        uiModel.addAttribute("squarelet", postingService.findSquarelet(id));
         uiModel.addAttribute("itemId", id);
         return "squarelets/show";
     }
@@ -53,11 +53,11 @@ privileged aspect SquareletController_Roo_Controller {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("squarelets", squareletService.findSquareletEntries(firstResult, sizeNo));
-            float nrOfPages = (float) squareletService.countAllSquarelets() / sizeNo;
+            uiModel.addAttribute("squarelets", postingService.findSquareletEntries(firstResult, sizeNo));
+            float nrOfPages = (float) postingService.countAllSquarelets() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("squarelets", squareletService.findAllSquarelets());
+            uiModel.addAttribute("squarelets", postingService.findAllSquarelets());
         }
         return "squarelets/list";
     }
@@ -69,20 +69,20 @@ privileged aspect SquareletController_Roo_Controller {
             return "squarelets/update";
         }
         uiModel.asMap().clear();
-        squareletService.updateSquarelet(squarelet);
+        postingService.updateSquarelet(squarelet);
         return "redirect:/squarelets/" + encodeUrlPathSegment(squarelet.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
-    public String SquareletController.updateForm(@PathVariable("id") Long id, Model uiModel) {
-        populateEditForm(uiModel, squareletService.findSquarelet(id));
+    public String SquareletController.updateForm(@PathVariable("id") String id, Model uiModel) {
+        populateEditForm(uiModel, postingService.findSquarelet(id));
         return "squarelets/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
-    public String SquareletController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Squarelet squarelet = squareletService.findSquarelet(id);
-        squareletService.deleteSquarelet(squarelet);
+    public String SquareletController.delete(@PathVariable("id") String id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+        Squarelet squarelet = postingService.findSquarelet(id);
+        postingService.deleteSquarelet(squarelet);
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
@@ -91,6 +91,7 @@ privileged aspect SquareletController_Roo_Controller {
     
     void SquareletController.populateEditForm(Model uiModel, Squarelet squarelet) {
         uiModel.addAttribute("squarelet", squarelet);
+        uiModel.addAttribute("squarelets", postingService.findAllSquarelets());
     }
     
     String SquareletController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

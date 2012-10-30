@@ -5,46 +5,46 @@ package de.punyco.thirtytwosquare.service;
 
 import de.punyco.thirtytwosquare.domain.Squarelet;
 import de.punyco.thirtytwosquare.repository.SquareletRepository;
-import de.punyco.thirtytwosquare.service.SquareletServiceImpl;
+import de.punyco.thirtytwosquare.service.PostingServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-privileged aspect SquareletServiceImpl_Roo_Service {
+privileged aspect PostingServiceImpl_Roo_Service {
     
-    declare @type: SquareletServiceImpl: @Service;
+    declare @type: PostingServiceImpl: @Service;
     
-    declare @type: SquareletServiceImpl: @Transactional;
+    declare @type: PostingServiceImpl: @Transactional;
     
     @Autowired
-    SquareletRepository SquareletServiceImpl.squareletRepository;
+    SquareletRepository PostingServiceImpl.squareletRepository;
     
-    public long SquareletServiceImpl.countAllSquarelets() {
+    public long PostingServiceImpl.countAllSquarelets() {
         return squareletRepository.count();
     }
     
-    public void SquareletServiceImpl.deleteSquarelet(Squarelet squarelet) {
+    public void PostingServiceImpl.deleteSquarelet(Squarelet squarelet) {
         squareletRepository.delete(squarelet);
     }
     
-    public Squarelet SquareletServiceImpl.findSquarelet(Long id) {
+    public Squarelet PostingServiceImpl.findSquarelet(String id) {
         return squareletRepository.findOne(id);
     }
     
-    public List<Squarelet> SquareletServiceImpl.findAllSquarelets() {
+    public List<Squarelet> PostingServiceImpl.findAllSquarelets() {
         return squareletRepository.findAll();
     }
     
-    public List<Squarelet> SquareletServiceImpl.findSquareletEntries(int firstResult, int maxResults) {
+    public List<Squarelet> PostingServiceImpl.findSquareletEntries(int firstResult, int maxResults) {
         return squareletRepository.findAll(new org.springframework.data.domain.PageRequest(firstResult / maxResults, maxResults)).getContent();
     }
     
-    public void SquareletServiceImpl.saveSquarelet(Squarelet squarelet) {
+    public void PostingServiceImpl.saveSquarelet(Squarelet squarelet) {
         squareletRepository.save(squarelet);
     }
     
-    public Squarelet SquareletServiceImpl.updateSquarelet(Squarelet squarelet) {
+    public Squarelet PostingServiceImpl.updateSquarelet(Squarelet squarelet) {
         return squareletRepository.save(squarelet);
     }
     

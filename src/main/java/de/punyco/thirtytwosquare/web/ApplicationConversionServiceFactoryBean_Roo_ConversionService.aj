@@ -4,7 +4,7 @@
 package de.punyco.thirtytwosquare.web;
 
 import de.punyco.thirtytwosquare.domain.Squarelet;
-import de.punyco.thirtytwosquare.service.SquareletService;
+import de.punyco.thirtytwosquare.service.PostingService;
 import de.punyco.thirtytwosquare.web.ApplicationConversionServiceFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -16,28 +16,20 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
     
     @Autowired
-    SquareletService ApplicationConversionServiceFactoryBean.squareletService;
+    PostingService ApplicationConversionServiceFactoryBean.postingService;
     
     public Converter<Squarelet, String> ApplicationConversionServiceFactoryBean.getSquareletToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<de.punyco.thirtytwosquare.domain.Squarelet, java.lang.String>() {
             public String convert(Squarelet squarelet) {
-                return new StringBuilder().append(squarelet.getMetadata()).toString();
+                return "(no displayable fields)";
             }
         };
     }
     
-    public Converter<Long, Squarelet> ApplicationConversionServiceFactoryBean.getIdToSquareletConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.Long, de.punyco.thirtytwosquare.domain.Squarelet>() {
-            public de.punyco.thirtytwosquare.domain.Squarelet convert(java.lang.Long id) {
-                return squareletService.findSquarelet(id);
-            }
-        };
-    }
-    
-    public Converter<String, Squarelet> ApplicationConversionServiceFactoryBean.getStringToSquareletConverter() {
+    public Converter<String, Squarelet> ApplicationConversionServiceFactoryBean.getIdToSquareletConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.String, de.punyco.thirtytwosquare.domain.Squarelet>() {
-            public de.punyco.thirtytwosquare.domain.Squarelet convert(String id) {
-                return getObject().convert(getObject().convert(id, Long.class), Squarelet.class);
+            public de.punyco.thirtytwosquare.domain.Squarelet convert(java.lang.String id) {
+                return postingService.findSquarelet(id);
             }
         };
     }
@@ -45,7 +37,6 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
         registry.addConverter(getSquareletToStringConverter());
         registry.addConverter(getIdToSquareletConverter());
-        registry.addConverter(getStringToSquareletConverter());
     }
     
     public void ApplicationConversionServiceFactoryBean.afterPropertiesSet() {

@@ -4,7 +4,8 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_de_punyco_thirtytwosquare_domain_Squarelet" items="${squarelets}" z="tKTQn7C+HQrY4YSBI/l6lDjdQVo=">
         <table:table data="${squarelets}" id="l_de_punyco_thirtytwosquare_domain_Squarelet" path="/squarelets" z="V0JQC8+TAAsnmyG/TAKQCn0qRzM=">
-            <table:column id="c_de_punyco_thirtytwosquare_domain_Squarelet_metadata" property="metadata" z="jZCPi58SBbrRN4GcR+TPRwIIJiU="/>
+            <table:column id="c_de_punyco_thirtytwosquare_domain_Squarelet_content" property="content" z="bOAUu4YqSt8EKRAiVrNfqt8uoS8="/>
+            <table:column id="c_de_punyco_thirtytwosquare_domain_Squarelet_replies" property="replies" z="MDblLEb6+EmWaDnNi/c9eV26ZLA="/>
         </table:table>
     </page:list>
 </div>

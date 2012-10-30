@@ -3,18 +3,18 @@
 
 package de.punyco.thirtytwosquare.repository;
 
-import de.punyco.thirtytwosquare.domain.Squarelet;
-import de.punyco.thirtytwosquare.repository.SquareletRepository;
+import de.punyco.thirtytwosquare.domain.UserAccount;
+import de.punyco.thirtytwosquare.repository.UserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-privileged aspect SquareletRepository_Roo_Jpa_Repository {
+privileged aspect UserRepository_Roo_Jpa_Repository {
     
-    declare parents: SquareletRepository extends JpaRepository<Squarelet, String>;
+    declare parents: UserRepository extends JpaRepository<UserAccount, String>;
     
-    declare parents: SquareletRepository extends JpaSpecificationExecutor<Squarelet>;
+    declare parents: UserRepository extends JpaSpecificationExecutor<UserAccount>;
     
-    declare @type: SquareletRepository: @Repository;
+    declare @type: UserRepository: @Repository;
     
 }

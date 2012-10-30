@@ -18,17 +18,17 @@ privileged aspect Squarelet_Roo_Jpa_Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long Squarelet.id;
+    private String Squarelet.id;
     
     @Version
     @Column(name = "version")
     private Integer Squarelet.version;
     
-    public Long Squarelet.getId() {
+    public String Squarelet.getId() {
         return this.id;
     }
     
-    public void Squarelet.setId(Long id) {
+    public void Squarelet.setId(String id) {
         this.id = id;
     }
     

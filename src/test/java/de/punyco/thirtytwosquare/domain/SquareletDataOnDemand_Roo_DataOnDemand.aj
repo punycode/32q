@@ -6,7 +6,7 @@ package de.punyco.thirtytwosquare.domain;
 import de.punyco.thirtytwosquare.domain.Squarelet;
 import de.punyco.thirtytwosquare.domain.SquareletDataOnDemand;
 import de.punyco.thirtytwosquare.repository.SquareletRepository;
-import de.punyco.thirtytwosquare.service.SquareletService;
+import de.punyco.thirtytwosquare.service.PostingService;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,20 +26,20 @@ privileged aspect SquareletDataOnDemand_Roo_DataOnDemand {
     private List<Squarelet> SquareletDataOnDemand.data;
     
     @Autowired
-    SquareletService SquareletDataOnDemand.squareletService;
+    PostingService SquareletDataOnDemand.postingService;
     
     @Autowired
     SquareletRepository SquareletDataOnDemand.squareletRepository;
     
     public Squarelet SquareletDataOnDemand.getNewTransientSquarelet(int index) {
         Squarelet obj = new Squarelet();
-        setMetadata(obj, index);
+        setContent(obj, index);
         return obj;
     }
     
-    public void SquareletDataOnDemand.setMetadata(Squarelet obj, int index) {
-        String metadata = "metadata_" + index;
-        obj.setMetadata(metadata);
+    public void SquareletDataOnDemand.setContent(Squarelet obj, int index) {
+        byte[] content = String.valueOf(index).getBytes();
+        obj.setContent(content);
     }
     
     public Squarelet SquareletDataOnDemand.getSpecificSquarelet(int index) {
@@ -51,15 +51,15 @@ privileged aspect SquareletDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         Squarelet obj = data.get(index);
-        Long id = obj.getId();
-        return squareletService.findSquarelet(id);
+        String id = obj.getId();
+        return postingService.findSquarelet(id);
     }
     
     public Squarelet SquareletDataOnDemand.getRandomSquarelet() {
         init();
         Squarelet obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
-        return squareletService.findSquarelet(id);
+        String id = obj.getId();
+        return postingService.findSquarelet(id);
     }
     
     public boolean SquareletDataOnDemand.modifySquarelet(Squarelet obj) {
@@ -69,7 +69,7 @@ privileged aspect SquareletDataOnDemand_Roo_DataOnDemand {
     public void SquareletDataOnDemand.init() {
         int from = 0;
         int to = 10;
-        data = squareletService.findSquareletEntries(from, to);
+        data = postingService.findSquareletEntries(from, to);
         if (data == null) {
             throw new IllegalStateException("Find entries implementation for 'Squarelet' illegally returned null");
         }
@@ -81,7 +81,7 @@ privileged aspect SquareletDataOnDemand_Roo_DataOnDemand {
         for (int i = 0; i < 100; i++) {
             Squarelet obj = getNewTransientSquarelet(i);
             try {
-                squareletService.saveSquarelet(obj);
+                postingService.saveSquarelet(obj);
             } catch (ConstraintViolationException e) {
                 StringBuilder msg = new StringBuilder();
                 for (Iterator<ConstraintViolation<?>> iter = e.getConstraintViolations().iterator(); iter.hasNext();) {
