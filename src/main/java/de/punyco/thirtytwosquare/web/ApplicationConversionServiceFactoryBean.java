@@ -1,14 +1,17 @@
 package de.punyco.thirtytwosquare.web;
 
+import de.punyco.thirtytwosquare.domain.Squarelet;
+import de.punyco.thirtytwosquare.service.PostingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+
 import org.springframework.core.convert.converter.Converter;
+
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
-import org.springframework.roo.addon.web.mvc.controller.converter.RooConversionService;
 
-import de.punyco.thirtytwosquare.domain.Squarelet;
-import de.punyco.thirtytwosquare.service.SquareletService;
+import org.springframework.roo.addon.web.mvc.controller.converter.RooConversionService;
 
 
 /**
@@ -19,8 +22,7 @@ import de.punyco.thirtytwosquare.service.SquareletService;
 public class ApplicationConversionServiceFactoryBean extends FormattingConversionServiceFactoryBean {
 
     @Autowired
-    SquareletService squareletService;
-
+    PostingService postingService;
 
     @Override
     protected void installFormatters(FormatterRegistry registry) {
@@ -36,31 +38,19 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 
             public String convert(Squarelet squarelet) {
 
-                return new StringBuilder().append(squarelet.getMetadata()).toString();
+                return "(no displayable fields)";
             }
         };
     }
 
 
-    public Converter<Long, Squarelet> getIdToSquareletConverter() {
-
-        return new Converter<Long, Squarelet>() {
-
-            public Squarelet convert(java.lang.Long id) {
-
-                return squareletService.findSquarelet(id);
-            }
-        };
-    }
-
-
-    public Converter<String, Squarelet> getStringToSquareletConverter() {
+    public Converter<String, Squarelet> getIdToSquareletConverter() {
 
         return new Converter<String, Squarelet>() {
 
             public Squarelet convert(String id) {
 
-                return getObject().convert(getObject().convert(id, Long.class), Squarelet.class);
+                return postingService.findSquarelet(id);
             }
         };
     }
@@ -70,10 +60,10 @@ public class ApplicationConversionServiceFactoryBean extends FormattingConversio
 
         registry.addConverter(getSquareletToStringConverter());
         registry.addConverter(getIdToSquareletConverter());
-        registry.addConverter(getStringToSquareletConverter());
     }
 
 
+    @Override
     public void afterPropertiesSet() {
 
         super.afterPropertiesSet();
