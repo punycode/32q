@@ -29,13 +29,25 @@ privileged aspect UserAccountDataOnDemand_Roo_DataOnDemand {
     
     public UserAccount UserAccountDataOnDemand.getNewTransientUserAccount(int index) {
         UserAccount obj = new UserAccount();
+        setEmail(obj, index);
         setNickname(obj, index);
+        setUserId(obj, index);
         return obj;
+    }
+    
+    public void UserAccountDataOnDemand.setEmail(UserAccount obj, int index) {
+        String email = "foo" + index + "@bar.com";
+        obj.setEmail(email);
     }
     
     public void UserAccountDataOnDemand.setNickname(UserAccount obj, int index) {
         String nickname = "nickname_" + index;
         obj.setNickname(nickname);
+    }
+    
+    public void UserAccountDataOnDemand.setUserId(UserAccount obj, int index) {
+        String userId = "userId_" + index;
+        obj.setUserId(userId);
     }
     
     public UserAccount UserAccountDataOnDemand.getSpecificUserAccount(int index) {
@@ -47,14 +59,14 @@ privileged aspect UserAccountDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         UserAccount obj = data.get(index);
-        String id = obj.getUserId();
+        String id = obj.getId();
         return userRepository.findOne(id);
     }
     
     public UserAccount UserAccountDataOnDemand.getRandomUserAccount() {
         init();
         UserAccount obj = data.get(rnd.nextInt(data.size()));
-        String id = obj.getUserId();
+        String id = obj.getId();
         return userRepository.findOne(id);
     }
     

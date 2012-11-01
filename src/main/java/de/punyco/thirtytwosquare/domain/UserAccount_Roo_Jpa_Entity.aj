@@ -17,19 +17,19 @@ privileged aspect UserAccount_Roo_Jpa_Entity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
-    private String UserAccount.userId;
+    @Column(name = "id")
+    private String UserAccount.id;
     
     @Version
     @Column(name = "version")
     private Integer UserAccount.version;
     
-    public String UserAccount.getUserId() {
-        return this.userId;
+    public String UserAccount.getId() {
+        return this.id;
     }
     
-    public void UserAccount.setUserId(String id) {
-        this.userId = id;
+    public void UserAccount.setId(String id) {
+        this.id = id;
     }
     
     public Integer UserAccount.getVersion() {

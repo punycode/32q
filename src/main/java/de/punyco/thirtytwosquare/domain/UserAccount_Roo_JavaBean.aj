@@ -3,9 +3,19 @@
 
 package de.punyco.thirtytwosquare.domain;
 
+import de.punyco.thirtytwosquare.domain.Roles;
 import de.punyco.thirtytwosquare.domain.UserAccount;
+import java.util.Set;
 
 privileged aspect UserAccount_Roo_JavaBean {
+    
+    public String UserAccount.getUserId() {
+        return this.userId;
+    }
+    
+    public void UserAccount.setUserId(String userId) {
+        this.userId = userId;
+    }
     
     public String UserAccount.getNickname() {
         return this.nickname;
@@ -13,6 +23,18 @@ privileged aspect UserAccount_Roo_JavaBean {
     
     public void UserAccount.setNickname(String nickname) {
         this.nickname = nickname;
+    }
+    
+    public String UserAccount.getEmail() {
+        return this.email;
+    }
+    
+    public void UserAccount.setEmail(String email) {
+        this.email = email;
+    }
+    
+    public void UserAccount.setAuthorities(Set<Roles> authorities) {
+        this.authorities = authorities;
     }
     
 }
