@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 @RooJpaRepository(domainType = UserAccount.class)
 @Repository
 public interface UserRepository extends JpaSpecificationExecutor<UserAccount>, JpaRepository<UserAccount, String> {
+
+    UserAccount findByUserId(String id);
 }

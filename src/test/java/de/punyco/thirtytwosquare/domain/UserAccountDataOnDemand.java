@@ -81,7 +81,7 @@ public class UserAccountDataOnDemand {
         init();
 
         UserAccount obj = data.get(rnd.nextInt(data.size()));
-        String id = obj.getUserId();
+        String id = obj.getId();
 
         return userRepository.findOne(id);
     }
@@ -100,9 +100,27 @@ public class UserAccountDataOnDemand {
         }
 
         UserAccount obj = data.get(index);
-        String id = obj.getUserId();
+        String id = obj.getId();
 
         return userRepository.findOne(id);
+    }
+
+
+    public UserAccount getNewTransientUserAccount(int index) {
+
+        UserAccount obj = new UserAccount();
+        setEmail(obj, index);
+        setNickname(obj, index);
+        setUserId(obj, index);
+
+        return obj;
+    }
+
+
+    public void setEmail(UserAccount obj, int index) {
+
+        String email = "foo" + index + "@bar.com";
+        obj.setEmail(email);
     }
 
 
@@ -113,11 +131,9 @@ public class UserAccountDataOnDemand {
     }
 
 
-    public UserAccount getNewTransientUserAccount(int index) {
+    public void setUserId(UserAccount obj, int index) {
 
-        UserAccount obj = new UserAccount();
-        setNickname(obj, index);
-
-        return obj;
+        String userId = "userId_" + index;
+        obj.setUserId(userId);
     }
 }

@@ -59,7 +59,7 @@ public class UserAccountIntegrationTest {
         UserAccount obj = dod.getRandomUserAccount();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to initialize correctly", obj);
 
-        String id = obj.getUserId();
+        String id = obj.getId();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to provide an identifier", id);
         obj = userRepository.findOne(id);
         userRepository.delete(obj);
@@ -76,10 +76,10 @@ public class UserAccountIntegrationTest {
 
         UserAccount obj = dod.getNewTransientUserAccount(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'UserAccount' identifier to be null", obj.getUserId());
+        Assert.assertNull("Expected 'UserAccount' identifier to be null", obj.getId());
         userRepository.save(obj);
         userRepository.flush();
-        Assert.assertNotNull("Expected 'UserAccount' identifier to no longer be null", obj.getUserId());
+        Assert.assertNotNull("Expected 'UserAccount' identifier to no longer be null", obj.getId());
     }
 
 
@@ -89,7 +89,7 @@ public class UserAccountIntegrationTest {
         UserAccount obj = dod.getRandomUserAccount();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to initialize correctly", obj);
 
-        String id = obj.getUserId();
+        String id = obj.getId();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to provide an identifier", id);
         obj = userRepository.findOne(id);
 
@@ -97,8 +97,8 @@ public class UserAccountIntegrationTest {
         Integer currentVersion = obj.getVersion();
         UserAccount merged = userRepository.save(obj);
         userRepository.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object",
-            merged.getUserId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(),
+            id);
         Assert.assertTrue("Version for 'UserAccount' failed to increment on merge and flush directive",
             (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
@@ -110,7 +110,7 @@ public class UserAccountIntegrationTest {
         UserAccount obj = dod.getRandomUserAccount();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to initialize correctly", obj);
 
-        String id = obj.getUserId();
+        String id = obj.getId();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to provide an identifier", id);
         obj = userRepository.findOne(id);
         Assert.assertNotNull("Find method for 'UserAccount' illegally returned null for id '" + id + "'", obj);
@@ -140,11 +140,11 @@ public class UserAccountIntegrationTest {
         UserAccount obj = dod.getRandomUserAccount();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to initialize correctly", obj);
 
-        String id = obj.getUserId();
+        String id = obj.getId();
         Assert.assertNotNull("Data on demand for 'UserAccount' failed to provide an identifier", id);
         obj = userRepository.findOne(id);
         Assert.assertNotNull("Find method for 'UserAccount' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'UserAccount' returned the incorrect identifier", id, obj.getUserId());
+        Assert.assertEquals("Find method for 'UserAccount' returned the incorrect identifier", id, obj.getId());
     }
 
 
