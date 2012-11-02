@@ -99,12 +99,9 @@ public class GoogleUserAuthenticationTest {
     @Test
     public void returningUserShouldNotHaveRoleUnregistered() {
 
+        setupReturningUser();
         testHelper.setEnvIsLoggedIn(true);
         testHelper.setEnvEmail("returning@gmail.com");
-
-        UserAccount userAccount = new UserAccount();
-        userAccount.setId("anything");
-        when(userRepository.findByUserId(anyString())).thenReturn(userAccount);
 
         // Given an authentication token of a returning user
         PreAuthenticatedAuthenticationToken authenticationToken = new PreAuthenticatedAuthenticationToken(
@@ -123,12 +120,10 @@ public class GoogleUserAuthenticationTest {
     @Ignore
     public void adminUserFromGoogleShouldHaveRoleAdmin() {
 
+        setupReturningUser();
         testHelper.setEnvIsLoggedIn(true);
         testHelper.setEnvEmail("admin@gmail.com");
-
-        UserAccount userAccount = new UserAccount();
-        userAccount.setId("anything");
-        when(userRepository.findByUserId(anyString())).thenReturn(userAccount);
+        testHelper.setEnvIsAdmin(true);
 
         // Given an authentication token of a returning user
         PreAuthenticatedAuthenticationToken authenticationToken = new PreAuthenticatedAuthenticationToken(
@@ -140,6 +135,14 @@ public class GoogleUserAuthenticationTest {
         // ... should yield _no_ UNREGISTERED role
         Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) userDetails.getAuthorities();
         assertThat(authorities, hasItem(sameAsRole(Roles.ADMIN)));
+    }
+
+
+    private void setupReturningUser() {
+
+        UserAccount userAccount = new UserAccount("anything");
+        userAccount.setId("anything");
+        when(userRepository.findByUserId(anyString())).thenReturn(userAccount);
     }
 
     public static class RoleMatcher extends CustomTypeSafeMatcher<GrantedAuthority> {

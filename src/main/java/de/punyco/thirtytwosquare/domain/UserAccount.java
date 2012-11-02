@@ -44,7 +44,6 @@ public class UserAccount implements UserDetails, Serializable {
     private Integer version;
 
     @NotEmpty
-    @Extension(vendorName = "datanucleus", key = "gae.pk-name", value = "true")
     private String userId;
 
     private String nickname;
@@ -53,19 +52,21 @@ public class UserAccount implements UserDetails, Serializable {
     private String email;
 
     @ElementCollection
-    private Set<Roles> authorities;
+    private Set<Roles> authorities = new HashSet<Roles>();
 
-    public UserAccount() {
+    UserAccount() {
+    }
 
+
+    public UserAccount(String userId) {
+
+        this.userId = userId;
         authorities = Collections.singleton(Roles.USER);
     }
 
     public static UserAccount withGoogleId(String userId) {
 
-        UserAccount userAccount = new UserAccount();
-        userAccount.setUserId(userId);
-
-        return userAccount;
+        return new UserAccount(userId);
     }
 
 
