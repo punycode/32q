@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.punyco.thirtytwosquare</groupId>
     <artifactId>thirtytwosquare</artifactId>
-    <version>0.2.BUILD-SNAPSHOT</version>
+    <version>0.2.BUILD</version>
     <packaging>war</packaging>
 
     <name>32 Quadrat</name>
@@ -30,7 +30,7 @@
         <url>http://github.com/punycode/32q</url>
         <connection>scm:git:https://github.com/punycode/32q.git</connection>
         <developerConnection>scm:git:ssh://github.com/punycode/32q.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>thirtytwosquare-0.2.BUILD</tag>
   </scm>
 
     <ciManagement>
