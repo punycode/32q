@@ -3,11 +3,16 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <div id="menu">
+        <!--
         <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
             <menu:category id="c_squarelet" z="vJ747khVg6GvPp5dCOpvt80n1tA=">
                 <menu:item id="i_squarelet_new" messageCode="global_menu_new" url="/squarelets?form" z="gOuyiVF77e9iuYefSYx+qjpRDIc="/>
                 <menu:item id="i_squarelet_list" messageCode="global_menu_list" url="/squarelets?page=1&amp;size=${empty param.size ? 10 : param.size}" z="4OUkVy2enC8Yfd7sbmqxbDrYZIk="/>
             </menu:category>
+            <menu:category id="c_account" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
+                <menu:item id="i_account__accountindex_id" messageCode="global_generic" url="/account/index" z="1QUYm/LGdC9Uai10R0JxPwLbdXI="/>
+            </menu:category>
         </menu:menu>
+        -->
     </div>
 </jsp:root>
