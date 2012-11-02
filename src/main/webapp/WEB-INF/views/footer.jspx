@@ -5,31 +5,4 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
     <jsp:output omit-xml-declaration="yes" />
 
-    <spring:url value="/" var="home" />
-
-    <div class="navbar-inner"><div class="container">
-        <a class="brand" href="${home}"><spring:message code="button_home" /></a>
-        <ul id="_user_nav" class="nav nav-pills">
-            <c:if test="${pageContext['request'].userPrincipal != null}">
-                <spring:url value="/resources/j_spring_security_logout" var="logout" />
-                <li><a href="${logout}"><spring:message code="security_logout" /></a></li>
-            </c:if>
-            <li class="dropdown"><a id="language" data-toggle="dropdown" class="dropdown-toggle"> <spring:message
-                        code="global_language" /> <span class="caret" />
-                </a>
-                <ul class="dropdown-menu">
-                    <li><util:language label="English" locale="en" /></li>
-                    <!--
-                    <li><util:language label="Deutsch" locale="de" /></li>
-                    -->
-                </ul>
-            </li>
-            <util:theme render="false" />
-        </ul>
-        <spring:url value="/resources/images/springsource-logo.png" var="logo" />
-        <spring:message code="global_sponsored" htmlEscape="false" var="sponsored" />
-        <div class="navbar-text pull-right">
-            <a class="navbar-link" href="http://springsource.com" title="${fn:escapeXml(sponsored)}"> ${fn:escapeXml(sponsored)} </a>
-        </div>
-    </div></div>
 </nav>
