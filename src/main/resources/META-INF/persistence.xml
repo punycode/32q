@@ -9,15 +9,10 @@
             <!--
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
             -->
-            <property name="datanucleus.NontransactionalRead" value="true"/>
-            <property name="datanucleus.NontransactionalWrite" value="true"/>
-            <property name="datanucleus.autoCreateSchema" value="false"/>
-            <property name="datanucleus.autoCreateTables" value="true"/>
-            <property name="datanucleus.autoCreateColumns" value="false"/>
-            <property name="datanucleus.autoCreateConstraints" value="false"/>
-            <property name="datanucleus.validateTables" value="false"/>
-            <property name="datanucleus.validateConstraints" value="false"/>
             <property name="datanucleus.jpa.addClassTransformer" value="false"/>
+            <property name="datanucleus.singletonEMFForName" value="true"/>
+            <property name="datanucleus.CopyOnAttach" value="false"/>
+            <property name="datanucleus.DetachAllOnCommit" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>
