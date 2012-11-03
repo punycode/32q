@@ -558,7 +558,6 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
                         <goals>
                             <goal>enhance</goal>
                         </goals>
