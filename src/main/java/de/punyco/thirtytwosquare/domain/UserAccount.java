@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,17 +50,22 @@ public class UserAccount implements UserDetails, Serializable {
     @NotEmpty
     private String email;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
     private Set<Roles> authorities = new HashSet<Roles>();
 
-    UserAccount() {
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private Set<Squarelet> squarelets = new HashSet<Squarelet>();
+
+    protected UserAccount() {
     }
 
 
     public UserAccount(String userId) {
 
         this.userId = userId;
-        authorities = Collections.singleton(Roles.USER);
+        authorities.add(Roles.USER);
+        authorities.add(Roles.UNREGISTERED);
     }
 
     public static UserAccount withGoogleId(String userId) {
@@ -130,18 +134,41 @@ public class UserAccount implements UserDetails, Serializable {
     }
 
 
+    public Set<Squarelet> getSquarelets() {
+
+        return squarelets;
+    }
+
+
+    protected void setSquarelets(Set<Squarelet> squarelets) {
+
+        this.squarelets = squarelets;
+    }
+
+
+    public void addSquarelet(Squarelet squarelet) {
+
+        squarelet.setCreatedBy(this);
+    }
+
+
+    void internalAddSquarelet(Squarelet squarelet) {
+
+        this.squarelets.add(squarelet);
+    }
+
+
+    void internalRemoveSquarelet(Squarelet squarelet) {
+
+        this.squarelets.remove(squarelet);
+    }
+
+
     // --- UserDetails contract --
 
     public Set<Roles> getAuthorities() {
 
-        if (getId() == null) {
-            HashSet<Roles> effectiveAuthorities = new HashSet<Roles>(authorities);
-            effectiveAuthorities.add(Roles.UNREGISTERED);
-
-            return Collections.unmodifiableSet(effectiveAuthorities);
-        } else {
-            return authorities;
-        }
+        return authorities;
     }
 
 

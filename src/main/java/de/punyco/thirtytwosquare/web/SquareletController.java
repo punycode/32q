@@ -57,8 +57,6 @@ public class SquareletController {
     @RequestMapping(params = "form", produces = "text/html")
     public String createForm(Model uiModel) {
 
-        populateEditForm(uiModel, new Squarelet());
-
         return "squarelets/create";
     }
 

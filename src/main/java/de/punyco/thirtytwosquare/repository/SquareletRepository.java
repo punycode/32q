@@ -9,8 +9,12 @@ import org.springframework.roo.addon.layers.repository.jpa.RooJpaRepository;
 
 import org.springframework.stereotype.Repository;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @RooJpaRepository(domainType = Squarelet.class)
 @Repository
+@Transactional(propagation = Propagation.SUPPORTS)
 public interface SquareletRepository extends JpaSpecificationExecutor<Squarelet>, JpaRepository<Squarelet, String> {
 }

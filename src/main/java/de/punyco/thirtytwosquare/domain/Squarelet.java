@@ -45,6 +45,18 @@ public class Squarelet implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Squarelet> replies = new HashSet<Squarelet>();
 
+    @ManyToOne(optional = false, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private UserAccount createdBy;
+
+    protected Squarelet() {
+    }
+
+
+    public Squarelet(byte[] rawImage, UserAccount owner) {
+
+        content = rawImage;
+    }
+
     public String getId() {
 
         return this.id;
@@ -75,7 +87,7 @@ public class Squarelet implements Serializable {
     }
 
 
-    public void setContent(byte[] content) {
+    protected void setContent(byte[] content) {
 
         this.content = content;
     }
@@ -90,6 +102,26 @@ public class Squarelet implements Serializable {
     public void setReplies(Set<Squarelet> replies) {
 
         this.replies = replies;
+    }
+
+
+    public UserAccount getCreatedBy() {
+
+        return createdBy;
+    }
+
+
+    public void setCreatedBy(UserAccount createdBy) {
+
+        if (this.createdBy != null) {
+            this.createdBy.internalRemoveSquarelet(this);
+        }
+
+        this.createdBy = createdBy;
+
+        if (createdBy != null) {
+            this.createdBy.internalAddSquarelet(this);
+        }
     }
 
 
