@@ -21,14 +21,21 @@
                         <spring:message code="application_name" htmlEscape="false"/>
                     </a>
                     <tiles:insertAttribute name="menu" ignore="true"/>
-                    <div class="pull-right">
+                    <div class="pull-right btn-group">
+                        <spring:url value="/account" var="account_url" />
                         <sec:authorize access="isAuthenticated()">
-                            <spring:url value="/account/logout" var="logout" />
-                            <a class="btn btn-primary btn-danger"
-                               href="${logout}"><spring:message code="security_logout" /></a>
+                            <a class="btn" href="${account_url}">
+                                <sec:authentication property="name" />
+                            </a>
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="caret" />
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="${account_url}?logout"><spring:message code="security_logout" /></a></li>
+                            </ul>
                         </sec:authorize>
                         <sec:authorize access="!isAuthenticated()">
-                            <a href="/account/login" class="btn btn-primary">
+                            <a href="${account_url}" class="btn btn-primary">
                                 <spring:message code="sign_in_or_sign_up" />
                             </a>
                         </sec:authorize>

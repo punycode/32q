@@ -24,7 +24,7 @@
       <spring:escapeBody javaScriptEscape="true" >${title}</spring:escapeBody>
     </c:set>
 
-    <section id="_title_${sec_id}_id" class="span6">
+    <section id="_title_${sec_id}_id" class="span8">
       <h2>${sec_title}</h2>
       <jsp:doBody />
     </section>

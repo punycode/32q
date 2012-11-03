@@ -5,7 +5,6 @@
   <spring:theme code="styleSheet" var="roo_css" />
   <spring:url value="/resources/styles/main.css" var="roo_css_url" />
   <spring:url value="/resources/js/bootstrap-dropdown.js" var="bootstrap_dropdown_url" />
-  <spring:url value="/resources/js/bootstrap-datepicker.js" var="bootstrap_datepicker_url" />
   <spring:url value="/resources/images/favicon.ico" var="favicon" />
 
   <link rel="stylesheet" type="text/css" media="screen" href="${roo_css_url}" />
@@ -19,5 +18,4 @@
   </c:set>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"><!-- required for FF3 and Opera --></script>
   <script src="${bootstrap_dropdown_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-  <script src="${bootstrap_datepicker_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 </jsp:root>

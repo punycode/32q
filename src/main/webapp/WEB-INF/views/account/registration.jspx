@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <jsp:output omit-xml-declaration="yes"/>
+  <spring:message code="label_account_index" htmlEscape="false" var="title"/>
+  <util:panel id="title" title="${title}">
+    <spring:message code="application_name" htmlEscape="false" var="app_name"/>
+      <form:form modelAttribute="userAccount">
+          <div class="control-group">
+              <form:label path="nickname" cssClass="control-label">Nickname</form:label>
+              <div class="controls">
+                  <form:input path="nickname" placeHolder="Nickname" />
+              </div>
+          </div>
+      </form:form>
+  </util:panel>
+</div>

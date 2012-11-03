@@ -161,7 +161,7 @@ public class UserAccount implements UserDetails, Serializable {
     @Override
     public String getUsername() {
 
-        return userId;
+        return nickname;
     }
 
 
